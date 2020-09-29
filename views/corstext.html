@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CORS</title>
+    </head>
+    <body>
+        <button type="button" onclick="startDownload()">下载</button>
+        <div id="imageBox"></div>
+        <script>
+            let downloadImage;
+            function startDownload(){
+                let imageURL="http://localhost:3000/images/a21800-23299.png";
+
+                downloadImage=new Image;
+                downloadImage.crossOrigin="Anonymous";
+                downloadImage.addEventListener("load",imageReceived,false);
+                downloadImage.src=imageURL;
+            }
+
+            function imageReceived(){
+                let canvas=document.createElement("canvas");
+                let context=canvas.getContext("2d");
+
+                canvas.width=downloadImage.width;
+                canvas.height=downloadImage.height;
+
+                context.drawImage(downloadImage,0,0);
+                let imageBox=document.getElementById("imageBox");
+                imageBox.appendChild(canvas);
+                try{
+
+                    localStorage.setItem("saved-image-example",canvas.toDataURL("image/png"));
+                }catch(err){
+                    console.log("Error:"+err);
+                }
+
+            }
+        </script>
+    </body>
+</html>

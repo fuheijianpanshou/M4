@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Line Demo
+    </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./d3/d3.js"></script>
+</head>
+
+<body>
+    <script>
+        const width = 960;
+        const height = 600;
+        const padding = { top: 60, bottom: 60, left: 60, right: 60 };
+
+
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        let g = svg.append("g")
+            .attr("transform", "translate(" + padding.left + "," + padding.top + ")");
+
+        var datas = [
+            {
+                cx: 150, cy: 200, r: 30
+            }, {
+                cx: 250, cy: 200, r: 30
+            }
+        ];
+
+        // var drag=d3.drag()
+        //             .on('start', () => {})
+        //             .on('end', () => {})
+        //             .on('drag', draged)
+
+        const circle = g.selectAll("circle")
+            .data(datas)
+            .enter()
+            .append('circle')
+            .attr('r', (d,i)=>{
+                return d.r;
+            })
+            .attr("cx",(d)=>{
+                return d.cx;
+
+            })
+            .attr("cy",(d)=>{
+                return d.cy;
+            })
+            .attr('fill', 'red')
+            .call(drag);
+
+        function draged() {
+            const {
+                x,
+                y
+            } = d3.event
+            d3.select(this)
+                .attr('cx', x)
+                .attr('cy', y)
+        }
+
+
+        // var drag = d3.drag()
+        //     .on("start", (d) => {
+        //         console.log("开始拖拽");
+        //     })
+        //     .on("end", (d) => {
+        //         console.log("拖拽结束");
+        //     })
+        //     .on("drag", () => {
+        //         console.log(d3.select(this));
+        //         d3.select(this)
+        //             .attr("cx", d3.event.x)
+        //             .attr("cy", d3.event.y);
+        //     });
+
+        // svg.append("circle")
+        //     .attr("cx",100)
+        //     .attr("cy",100)
+        //     .attr("r",10)
+        //     .attr("fill","black")
+        //     .call(drag);
+
+        // svg.selectAll("circle")
+        //     .data(datas)
+        //     .enter()
+        //     .append("circle")
+        //     .attr("cx", (d) => {
+        //         return d.cx;
+        //     })
+        //     .attr("cy", (d) => {
+        //         return d.cy;
+        //     })
+        //     .attr("r", (d) => {
+        //         return d.r;
+        //     })
+        //     .attr("fill", "black")
+        //     .call(drag);
+
+
+
+
+
+    </script>
+</body>
+
+</html>

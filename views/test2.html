@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        let canvas = document.getElementById("canvas");
+        canvas.height = 500;
+        canvas.width = 1000;
+        let ctx = canvas.getContext("2d");
+
+        let img = new Image;
+        img.onload = () => {
+            ctx.drawImage(img, 0, 0);
+            let imgData=ctx.getImageData(0,0,img.width,img.height).data
+            console.log(img.width+" "+img.height+" "+imgData.length);
+            //console.log(imgData.toString());
+            console.log(imgData);
+            let realData=[];
+            // imgData.array.forEach(element => {
+            //     console.log(element);
+            // });
+
+            imgData.forEach((item,index,array)=>{
+                if(item>0){
+                    realData.push([index,item]);
+                }
+            });
+            console.log(realData);
+        }
+        img.src = "/images/a81800-83299.png";
+
+    </script>
+</body>
+
+</html>

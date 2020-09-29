@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        MouseEvent
+    </title>
+    <script src="javascripts/d3.js"></script>
+
+</head>
+
+<body>
+    <svg></svg>
+    <script>
+        let width=960;
+        let height=500;
+        let svg=d3.select("svg")
+            .attr("width",width)
+            .attr("height",height);
+
+        let g=svg.append("g")
+            .attr("transform","translate(50,50");
+
+        g.append('rect')
+            .attr("x",50)
+            .attr("y",50)
+            .attr("width",100)
+            .attr("height",200)
+            .attr("fill","none")
+            .attr("stroke","red");
+
+        g.on("mousedown",)
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="javascripts/d3.js"></script>
+
+</head>
+
+<body>
+    <button type="button" onclick="re()">GET</button>
+    <script>
+        function re(){
+            let count=1;
+            console.log("get data");
+            let xhr=new XMLHttpRequest();
+
+            xhr.onload=(e)=>{
+                let arrayBuffer=xhr.response                            ;
+                console.log(arrayBuffer);
+            }
+            xhr.onprogress=(e)=>{
+                console.log(e)
+                if(e.lengthComputable){
+                    console.log(e.loaded/e.total);
+                }
+                console.log("ddd"+count);
+                count++;
+            }
+            xhr.open("GET","http://localhost:3000/testget");
+            xhr.responseType="arraybuffer";
+            xhr.send();
+        }
+
+    </script>
+</body>
+
+</html>

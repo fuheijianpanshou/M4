@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Line Demo
+    </title>
+    <script src="./d3/d3.js"></script>
+</head>
+
+<body>
+    <svg></svg>
+    <script>
+        const width = 1000;
+        const height = 600;
+        const padding = { top: 60, bottom: 60, left: 60, right: 60 };
+
+
+        let svg = d3.select("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        let g = svg.append("g")
+            .attr("transform", "translate(" + padding.left + "," + padding.top + ")");
+
+        let dataset = [
+            {
+                country: "china",
+                gdp: [[2000, 11920], [2001, 13170], [2002, 14550], [2003, 16500], [2004, 19440], [2005, 22870], [2006, 27930], [2007, 35040], [2008, 45470], [2009, 51050], [2010, 59490], [2011, 73140], [2012, 83860], [2013, 103550]]
+            }
+        ];
+
+        let maxGDP = d3.max(dataset[0].gdp, (d) => {
+            return d[1];
+        });
+        console.log(maxGDP);
+
+        let xScale = d3.scaleLinear()
+            .domain([2000, 2013])
+            .range([0, width - padding.left - padding.right - 100]);
+
+        let yScale = d3.scaleLinear()
+            .domain([0, maxGDP * 1.1])
+            .range([height - padding.top - padding.bottom, 0]);
+
+        let xAxis = d3.axisBottom()
+            .scale(xScale);
+        let yAxis = d3.axisLeft()
+            .scale(yScale);
+
+        let linePath = d3.line()
+            .x((d) => {
+                return xScale(d[0]);
+            })
+            .y((d) => {
+                return yScale(d[1]);
+            });
+
+        g.selectAll("path")
+            .data(dataset)
+            .enter()
+            .append("path")
+            .attr("transform", "translate(" + padding.left + "," + 0 + ")")
+            .attr("d", (d) => {
+                console.log(d);
+                return linePath(d.gdp);
+            })
+            .attr("fill", "none")
+            .attr("stroke-width", 3)
+            .attr("stroke", "red");
+
+        g.append("g")
+            .attr("transform", "translate(" + padding.left + "," + (height - padding.bottom - padding.top) + ")")
+            .call(xAxis);
+
+        g.append("g")
+            .attr("transform", "translate(" + padding.left + "," + 0 + ")")
+            .call(yAxis);
+
+
+
+    </script>
+</body>
+
+</html>

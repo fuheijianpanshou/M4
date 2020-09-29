@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>M4</title>
+    <script src="javascripts/d3.js"></script>
+    <script src="javascripts/jQuery.js"></script>
+    <style type="text/css">
+        /* img {
+            margin-left: -5px;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="control_container">
+        <label>width:</label>
+        <input type="text" id="input_width" ,value="500" />
+        <label>tStart:</label>
+        <input type="text" id="input_tstart" ,value="0" />
+        <label>tEnd:</label>
+        <input type="text" id="input_tend" ,value="50000" />
+        <button type="button" onclick="re()">getInfo</button>
+        <button type="button" id="show_window">dblWindow</button>
+        <button type="button" id="show_drag_window">dragWindow</button>
+        <button type="button" id="send_drag_info" onclick="sendDragInfo()">submit</button>
+
+    </div>
+
+    <svg></svg>
+    <!-- <div style="width: 100%;margin-top: 10px;margin-bottom: 30px;
+    white-space: nowrap;overflow-x: auto;-webkit-overflow-scrolling:touch;">
+        <img style="width: 300px;" src="images/a24680-26179.png">
+        <img style="width: 300px;" src="images/a25680-27179.png">
+        <img style="width: 300px;" src="images/a26680-28179.png">
+        <img style="width: 300px;" src="images/a27680-29179.png">
+        <img style="width: 300px;" src="images/a28680-30179.png">
+        <img style="width: 300px;" src="images/a29680-31179.png">
+        <img style="width: 300px;" src="images/a30680-32179.png">
+    </div> -->
+
+    <script src="javascripts/DisplayChart.js"></script>
+    <script src="javascripts/SvgToPng.js"></script>
+    <script src="javascripts/svg-dataurl.js"></script>
+    <script>
+        document.getElementById("input_width").value = 1000;
+        document.getElementById("input_tstart").value = 20000;
+        document.getElementById("input_tend").value = 50000;
+
+
+        function re() {
+
+            let width = document.getElementById("input_width").value;
+            let tStart = document.getElementById("input_tstart").value;
+            let tEnd = document.getElementById("input_tend").value;
+            let params = {
+                width: width,
+                tStart: tStart,
+                tEnd: tEnd
+            };
+            var da = $.ajax({
+                url: "http://localhost:3000/m4" + "?width=" + width + "&" + "tStart=" + tStart + "&" + "tEnd=" + tEnd,
+                type: "GET",
+                headers: {
+                    "Accept": "text/plain; charset=utf-8",
+                    "Content-Type": "text/plain; charset=utf-8"
+                },
+                //params:{"contentType": "application/json;charset=utf-8"},
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if (textStatus == "error") {
+                        alert(textStatus + " : " + errorThrown);
+                    } else {
+                        alert(textStatus);
+                    }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data.length);
+                    drawChart(data, params);
+                }
+            });
+
+        }
+
+    </script>
+</body>
+
+</html>
