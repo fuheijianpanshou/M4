@@ -144,7 +144,7 @@ function addWindow(params, event) {
             .attr("y", event.y)
             .attr("fill", "none")
             .attr("stroke", "grey")
-            .attr("strok-width", 1)
+            .attr("stroke-width", 1)
             .attr("width", parseInt(params.width * params.width / (params.tEnd - params.tStart)))
             .attr("height", 500);
 

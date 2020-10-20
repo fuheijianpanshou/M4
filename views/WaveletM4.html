@@ -4,14 +4,23 @@
     <title>WaveletM4</title>
     <script src="javascripts/jQuery.js"></script>
     <script src="javascripts/d3.js"></script>
+    <script src="javascripts/svg-dataurl.js"></script>
+    <script src="javascripts/SvgToPng.js"></script>
 </head>
 <body style="margin-left: 0px;">
     <div id="controlBox">
         <lebal>Width:</lebal>
-        <input id="inputWidth" value="500">
+        <input id="inputWidth" value="1000">
         <button type="button" id="submitBtn">getInfo</button>
     </div>
-    <div id="contentBox" style="margin-left: 0px;"></div>
+    <div style="margin-left: 0px;">
+        <div id="imgBox"></div>
+        <div id="contentBox" style="margin-left: 0px;"></div>
+    </div>
+    <div id='imgGallary' style="position: absolute;top: 50px;left: 1200px;width: 320px;max-height: 800px; overflow-y: scroll;">
+
+    </div>
+    
     <script src="javascripts/WaveletM4.js"></script>
 </body>
 </html>

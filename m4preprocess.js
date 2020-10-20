@@ -10,8 +10,8 @@ let connection = mysql.createConnection({
 
 connection.connect();
 
-const getRawDataSql="select v from data";
-const waveletSql="insert into waveletdata(flag,mint,minv,maxv,maxt) values(?,?,?,?,?)";
+const getRawDataSql="select v from datatest";
+const waveletSql="insert into waveletdatatest(flag,mint,minv,maxv,maxt) values(?,?,?,?,?)";
 
 connection.query(getRawDataSql,(err,result)=>{
     if(err){

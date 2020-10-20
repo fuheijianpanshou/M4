@@ -1,11 +1,17 @@
-function saveToPng(selection,pngName){
+function saveToPng(selection,width,data, nextStart, nextEnd){
     SVGConverter.loadFromElement(selection.node()).then((converter) => {
-       dataURLtoFile(converter.pngDataURL(),pngName);
+       //dataURLtoFile(converter.pngDataURL(),pngName);
        let imgBox=d3.select("#imgBox");
+       imgBox.select('img').remove();
+       let dataURL=converter.pngDataURL();
+       imgDataURLStack.push(dataURL);
        imgBox.append("img")
-        .attr("src",converter.pngDataURL())
-        .attr("width","300px");
-       selection.remove();
+        .attr("src",dataURL)
+        .attr("width",width*0.8+"px")
+        .attr("style",'margin-left:'+(60+(width-width*0.8)/2)+'px');
+        document.getElementById("imgGallary").style="position: absolute;top: 50px;left: "+(width+100)+"px;width: 320px;max-height: 800px; overflow-y: scroll;"
+        addImgGallary(dataURL);
+        progressiveWaveletTransfrom(data, nextStart, nextEnd);
        
       });
 }
@@ -70,9 +76,6 @@ function dataURLtoFile(dataurl, filename) {
             return;
         }
     });
-
-    
-    console.log(fe);
 }
 /**
  * dataUrl转为Blob
